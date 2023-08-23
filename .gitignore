@@ -1,0 +1,37 @@
+# Compiled output
+build/
+install/
+
+# CMake build artifacts
+CMakeFiles/
+CMakeCache.txt
+CMakeScripts/
+CMakeModules/
+Testing/
+
+# IDE-specific files
+.vscode/
+.idea/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+
+# Compiled binaries and libraries
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Compiled object files
+*.o
+*.obj
+
+# Package management files
+conanbuildinfo.txt
+conanbuildinfo.cmake
+
+# Miscellaneous
+*.log
+*.swp
+.DS_Store
+Thumbs.db
