@@ -8,8 +8,10 @@
 //homogeneous transformations
 namespace htf
 {
-    float rad2Deg(float angle_rad);
-    float deg2Rad(float angle_deg);
+    template<typename T>
+    T rad2Deg(T angle_rad);
+    template<typename T>
+    T deg2Rad(T angle_deg);
     const double PI = 3.14159265358979323846; //const
 
     class Htf{
@@ -25,9 +27,11 @@ namespace htf
             Htf(Eigen::Matrix4d);
             //mutator methods
             void setFromRotXYZ(cv::Mat rmat, double x, double y, double z);
+            template<typename T>
+            void setFromRotXYZ(Eigen::Matrix<T, 3, 3> rmat, T x, T y, T z);
             void setIdentity();
             void setFromTransform(Eigen::Matrix4d Transform);
-            void setFromRPYXYZ(float roll, float pitch, float yaw, float x, float y, float z);
+            void setFromRPYXYZ(double roll, double pitch, double yaw, double x, double y, double z);
             void invert();
             void toRosCoordinateFrame();
             //accessor methods

@@ -3,10 +3,13 @@
 namespace htf{
 
     //helper methods
-    float rad2Deg(float angle_rad){
+    template<typename T>
+    T rad2Deg(T angle_rad){
         return 180.0/PI * angle_rad;
     }
-    float deg2Rad(float angle_deg){
+
+    template<typename T>
+    T deg2Rad(T angle_deg){
         return PI/180.0 * angle_deg;
     }
 
@@ -37,6 +40,17 @@ namespace htf{
         tf_(2,3) = z;
     }
 
+    template <typename T>
+    void Htf::setFromRotXYZ(Eigen::Matrix<T, 3, 3> rmat, T x, T y, T z){
+        Eigen::Matrix<T, 4, 4> tf;
+        tf.block<3,3>(0,0) = rmat;
+        tf(0,3) = x;
+        tf(1,3) = y;
+        tf(2,3) = z;
+        tf(3,3) = 1.0;
+        tf_ = tf.template cast<double>;
+    }
+
     void Htf::setFromTransform(Eigen::Matrix4d Transform){
         tf_ = Transform;
     }
@@ -44,9 +58,9 @@ namespace htf{
     void Htf::toRosCoordinateFrame(){
         double x, y, z, theta_x, theta_y, theta_z;
         decomposeTransform(x, y, z, theta_x, theta_y, theta_z);
-        float x_ros = z;
-        float y_ros = -x;
-        float z_ros = -y;
+        double x_ros = z;
+        double y_ros = -x;
+        double z_ros = -y;
         double roll_ros = theta_z;
         double pitch_ros = -theta_x;
         double yaw_ros = -theta_y;
@@ -98,7 +112,7 @@ namespace htf{
     }
 
 
-    void Htf::setFromRPYXYZ(float roll, float pitch, float yaw, float x, float y, float z){
+    void Htf::setFromRPYXYZ(double roll, double pitch, double yaw, double x, double y, double z){
         // std::cout << "set from rpyxyz \n";
         Eigen::Matrix3d r;
         r = rot_(roll, pitch, yaw);
